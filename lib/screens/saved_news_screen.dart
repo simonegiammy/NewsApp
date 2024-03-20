@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/widgets/custom_textfield.dart';
+import 'package:news_app/widgets/header.dart';
 
 class SavedNewsScreen extends StatefulWidget {
   const SavedNewsScreen({super.key});
@@ -13,7 +14,9 @@ class _SavedNewsScreenState extends State<SavedNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Header(title: "Your Collection"),
         Container(
           height: 64,
           color: Colors.amber,

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:news_app/model/news.dart';
+import 'package:news_app/repository/news_repository.dart';
 import 'package:news_app/widgets/animated_carousel.dart';
+import 'package:news_app/widgets/header.dart';
 import 'package:news_app/widgets/news_card.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,60 +15,105 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<NewsCard> cards = [
-    const NewsCard(
-      id: "1",
-      color: Colors.deepOrange,
-    ),
-    const NewsCard(
-      id: "2",
-      color: Colors.deepPurple,
-    ),
-    const NewsCard(
-      id: "3",
-      color: Colors.teal,
-    ),
-    const NewsCard(
-      id: "4",
-      color: Colors.yellow,
-    ),
-    const NewsCard(
-      id: "5",
-      color: Colors.green,
-    ),
-    const NewsCard(
-      id: "6",
-      color: Colors.black,
-    )
-  ];
+  int selectedTab = 0;
+  List<Widget> cards = [];
+  List<News> news = [];
+  Map<int, List<News>> cachedNews = {};
+  void _undo() {
+    Widget? card;
+    setState(() {
+      card = cards.removeLast();
+    });
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() {
+        cards.insert(0, card!);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      news = await NewsRepository().getTopNews(null);
+      cachedNews[0] = news;
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 64,
-          color: Colors.red,
-          child: ListView.separated(
-            padding: const EdgeInsets.only(left: 24),
-            itemCount: 3,
+        Header(
+          title: "Breaking News",
+          action: GestureDetector(onTap: _undo, child: const Icon(Icons.undo)),
+        ),
+        SizedBox(
+          height: 48,
+          child: ListView.builder(
+            padding: const EdgeInsets.only(left: 24, top: 8),
+            itemCount: 5,
             scrollDirection: Axis.horizontal,
-            physics: const NeverScrollableScrollPhysics(),
+            //physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              List<String> pages = ["Trending", "Related", "Sport"];
-              return Text(pages[index]);
-            },
-            separatorBuilder: (context, index) {
-              return const VerticalDivider();
+              List<String> pages = [
+                "For you",
+                "Technology",
+                "Science",
+                "Business",
+                "Sports"
+              ];
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () async {
+                  selectedTab = index;
+
+                  if ((cachedNews[selectedTab] ?? []).isEmpty) {
+                    setState(() {
+                      news = [];
+                    });
+                    news =
+                        await NewsRepository().getTopNews(pages[selectedTab]);
+                    cachedNews[selectedTab] = news;
+                  } else {
+                    setState(() {
+                      news = cachedNews[selectedTab]!;
+                    });
+                    return;
+                  }
+
+                  setState(() {});
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  child: Text(
+                    pages[index],
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: selectedTab == index
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: selectedTab == index
+                            ? Colors.black
+                            : Colors.grey.withOpacity(0.7)),
+                  ),
+                ),
+              );
             },
           ),
         ),
         Expanded(
           child: Container(
-            color: Colors.black,
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: AnimatedCarousel(
-              items: cards,
-            ),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
+            child: news.isNotEmpty
+                ? AnimatedCarousel(
+                    news: news,
+                  )
+                : Center(
+                    child: LoadingAnimationWidget.inkDrop(
+                        color: Colors.black, size: 70),
+                  ),
           ),
         ),
       ],

@@ -21,51 +21,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var t = AppLocalizations.of(context);
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: const Text("NEWS"),
-          actions: const [
-            Icon(Icons.settings),
-            SizedBox(
-              width: 24,
-            )
-          ],
-        ),
-        body: SizedBox.expand(
-          child: Stack(
-            children: [
-              Expanded(
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: controller,
-                  children: const [
-                    MainScreen(),
-                    SearchScreen(),
-                    SavedNewsScreen()
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                    child: CustomNavBar(
-                        index: currentIndex,
-                        onItemSelected: (index) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                          controller.animateToPage(currentIndex,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.bounceIn);
-                        })),
-              )
-            ],
+        body: SafeArea(
+      child: Stack(
+        children: [
+          SizedBox.expand(
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: controller,
+              children: const [MainScreen(), SearchScreen(), SavedNewsScreen()],
+            ),
           ),
-        ));
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 0),
+                child: CustomNavBar(
+                    index: currentIndex,
+                    onItemSelected: (index) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                      controller.jumpToPage(
+                        currentIndex,
+                      );
+                    })),
+          )
+        ],
+      ),
+    ));
   }
 }
