@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
@@ -20,6 +21,7 @@ class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.8;
+    bool hasImage = widget.news.urlToImage != null;
 
     return Container(
       width: width,
@@ -39,11 +41,22 @@ class _NewsCardState extends State<NewsCard> {
       child: Stack(
         children: [
           SizedBox.expand(
-            child: FadeInImage.assetNetwork(
-              image: widget.news.urlToImage!,
-              placeholder: 'assets/asset.jpg',
-              fit: BoxFit.fitHeight,
-            ),
+            child: hasImage
+                ? CachedNetworkImage(
+                    imageUrl: widget.news.urlToImage!,
+                    placeholder: (context, url) {
+                      return Animate(
+                        effects: const [ShimmerEffect()],
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    fit: BoxFit.fitHeight,
+                  )
+                : Container(
+                    color: backgroundPalette[
+                        widget.news.title!.length % backgroundPalette.length]),
           ),
           Positioned(
               left: 0,
@@ -71,15 +84,15 @@ class _NewsCardState extends State<NewsCard> {
                       height: 4,
                     ),
                     Animate(
-                      /*onComplete: (controller) {
+                      onComplete: (controller) {
                         controller.repeat();
                       },
                       effects: const [
-                        //ShimmerEffect(duration: Duration(seconds: 2)) //TODO: UNCOMMENT THIS
-                      ],*/
+                        ShimmerEffect(duration: Duration(seconds: 2))
+                      ],
                       child: Text(
                         widget.news.title!,
-                        maxLines: 3,
+                        maxLines: hasImage ? 3 : 9,
                         overflow: TextOverflow.ellipsis,
                         style:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -125,50 +138,7 @@ class _NewsCardState extends State<NewsCard> {
                     ),
                   ],
                 ),
-              )), /*
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.news.author ?? "Anonymous",
-                          style: Theme.of(context).textTheme.titleMedium,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          DateFormat("dd/MM/yyyy  hh:mm").format(DateTime.parse(
-                            widget.news.publishedAt!,
-                          )),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: Colors.grey.withOpacity(0.7)),
-                          maxLines: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          )*/
+              )),
         ],
       ),
     );
@@ -183,19 +153,13 @@ class TagTile extends StatelessWidget {
   final String title;
   final int id;
   const TagTile({super.key, required this.title, required this.id});
-  T getRandomElement<T>(List<T> list) {
-    final random = Random();
-    int index = random.nextInt(list.length); // Genera un indice casuale
-    return list[
-        index]; // Restituisce l'elemento della lista all'indice generato
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       decoration: BoxDecoration(
-          color: palette[title.length % palette.length],
+          color: backgroundPalette[title.length % backgroundPalette.length],
           borderRadius: const BorderRadius.all(Radius.circular(100))),
       child: Text(
         title.toUpperCase(),

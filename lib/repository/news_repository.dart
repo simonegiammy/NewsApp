@@ -15,7 +15,7 @@ class NewsRepository {
               .toList(growable: true),
           onError: (err) => debugPrint(err.toString()),
         );
-    news.removeWhere((element) => element.urlToImage == null);
+    news.removeWhere((element) => element.title == "[Removed]");
     return news;
   }
 }

@@ -53,7 +53,7 @@ class AppThemeData {
   }
 }
 
-List<Color> palette = [
+List<Color> tagPalette = [
   const Color(0xff235789),
   const Color(0xff72405c),
   const Color(0xffc1292e),
@@ -61,4 +61,18 @@ List<Color> palette = [
   const Color(0xff020100),
   const Color(0xffd97e18),
   const Color(0xff50664F),
+];
+
+List<Color> backgroundPalette = [
+  const Color(0xfff94144),
+  const Color(0xfff3722c),
+  const Color(0xfff8961e),
+  const Color(0xfff9844a),
+  const Color(0xfff94144),
+  const Color(0xfff9c74f),
+  const Color(0xff90be6d),
+  const Color(0xff43aa8b),
+  const Color(0xff4d908e),
+  const Color(0xff577590),
+  const Color(0xff277da1)
 ];
