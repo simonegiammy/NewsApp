@@ -129,15 +129,21 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.9,
+              height: currentLanguage == "us"
+                  ? MediaQuery.of(context).size.height * 0.9
+                  : MediaQuery.of(context).size.height * 0.5,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
               child: news.isNotEmpty
                   ? AnimatedCarousel(
                       news: news,
                     )
-                  : Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: Colors.black, size: 70),
+                  : Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 164),
+                        child: LoadingAnimationWidget.inkDrop(
+                            color: Colors.black, size: 70),
+                      ),
                     ),
             ),
           ],

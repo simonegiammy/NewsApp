@@ -22,3 +22,7 @@ class MyApp extends StatelessWidget {
         home: const HomeScreen());
   }
 }
+
+String getLorem() {
+  return "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Commodo elit at imperdiet dui accumsan sit amet nulla. Elementum tempus egestas sed sed risus. Eu lobortis elementum nibh tellus. Et netus et malesuada fames ac. Purus viverra accumsan in nisl nisi scelerisque eu ultrices. Volutpat ac tincidunt vitae semper quis lectus nulla at. Tellus orci ac auctor augue. In nibh mauris cursus mattis molestie a iaculis at. Praesent semper feugiat nibh sed pulvinar. Risus sed vulputate odio ut enim blandit volutpat maecenas volutpat. In tellus integer feugiat scelerisque. Molestie ac feugiat sed lectus vestibulum mattis. Scelerisque in dictum non consectetur a erat nam. Porttitor eget dolor morbi non arcu. Volutpat consequat mauris nunc congue nisi. Nullam ac tortor vitae purus faucibus ornare suspendisse. In fermentum posuere urna nec tincidunt praesent semper feugiat nibh. Sit amet aliquam id diam maecenas ultricies mi. In ante metus dictum at tempor commodo ullamcorper.";
+}

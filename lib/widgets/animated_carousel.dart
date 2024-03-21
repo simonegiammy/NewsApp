@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/news.dart';
+import 'package:news_app/screens/news_details_screen.dart';
 import 'package:news_app/widgets/news_card.dart';
 
 class AnimatedCarousel extends StatefulWidget {
@@ -34,7 +35,15 @@ class _AnimatedCarouselState extends State<AnimatedCarousel> {
             .sublist(0, 3)
             .map((e) {
               int index = widget.news.indexOf(e);
-              Widget w = NewsCard(news: e, id: "$index");
+              Widget w = GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return NewsDetailsScreen(news: e);
+                      },
+                    ));
+                  },
+                  child: NewsCard(news: e, id: e.title!));
               if (index != 0) {
                 w = ColorFiltered(
                   colorFilter: ColorFilter.mode(

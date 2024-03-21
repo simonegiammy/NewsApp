@@ -42,7 +42,8 @@ class AppThemeData {
         bodyLarge: Typography.blackMountainView.bodyLarge!
             .copyWith(fontFamily: fontFamily, fontSize: 18, height: 1),
         bodyMedium: Typography.blackMountainView.bodyMedium!.copyWith(
-          fontSize: 15,
+          fontSize: 18,
+          letterSpacing: -1,
           fontFamily: fontFamily,
         ),
         bodySmall: Typography.blackMountainView.bodySmall!.copyWith(
