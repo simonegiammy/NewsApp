@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:news_app/model/news.dart';
 import 'package:news_app/repository/news_repository.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/widgets/animated_carousel.dart';
 import 'package:news_app/widgets/header.dart';
 import 'package:news_app/widgets/modal_menu.dart';
-import 'package:news_app/widgets/news_card.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+Map<int, List<News>> cachedNews = {};
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,19 +21,20 @@ class _MainScreenState extends State<MainScreen> {
   int selectedTab = 0;
   List<Widget> cards = [];
   List<News> news = [];
-  List<String> pages = [
-    "For you",
-    "Technology",
-    "Science",
-    "Business",
-    "Sports"
+  List<String> pages = [];
+  List<String> endpoints = [
+    "for you",
+    "technology",
+    "science",
+    "business",
+    "sports"
   ];
-  Map<int, List<News>> cachedNews = {};
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       news = await NewsRepository().getTopNews(null);
+      precacheImage(const AssetImage('assets/people.jpg'), context);
       cachedNews[0] = news;
       setState(() {});
     });
@@ -45,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
       cachedNews[selectedTab] = await NewsRepository().getTopNews(null);
     } else {
       cachedNews[selectedTab] =
-          await NewsRepository().getTopNews(pages[selectedTab]);
+          await NewsRepository().getTopNews(endpoints[selectedTab]);
     }
     setState(() {
       news = cachedNews[selectedTab]!;
@@ -64,6 +65,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var t = AppLocalizations.of(context)!;
+    pages = [t.forYou, t.technology, t.science, t.business, t.sports];
     return RefreshIndicator(
       color: Colors.black.withOpacity(0.7),
       onRefresh: () async {
@@ -75,9 +78,12 @@ class _MainScreenState extends State<MainScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Header(
-              title: "Breaking News",
+              title: t.breakingNews,
               action: GestureDetector(
-                  onTap: _openModalMenu, child: const Icon(Icons.settings)),
+                  onTap: _openModalMenu,
+                  child: const Icon(
+                    Icons.settings,
+                  )),
             ),
             SizedBox(
               height: 48,
@@ -97,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                           news = [];
                         });
                         news = await NewsRepository()
-                            .getTopNews(pages[selectedTab]);
+                            .getTopNews(endpoints[selectedTab]);
                         cachedNews[selectedTab] = news;
                       } else {
                         setState(() {
@@ -120,7 +126,9 @@ class _MainScreenState extends State<MainScreen> {
                                     ? FontWeight.bold
                                     : FontWeight.normal,
                                 color: selectedTab == index
-                                    ? Colors.black
+                                    ? darkTheme
+                                        ? Colors.white
+                                        : Colors.black
                                     : Colors.grey.withOpacity(0.7)),
                       ),
                     ),
@@ -129,9 +137,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Container(
-              height: currentLanguage == "us"
-                  ? MediaQuery.of(context).size.height * 0.9
-                  : MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.75,
               padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
               child: news.isNotEmpty
                   ? AnimatedCarousel(
@@ -142,7 +148,8 @@ class _MainScreenState extends State<MainScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 164),
                         child: LoadingAnimationWidget.inkDrop(
-                            color: Colors.black, size: 70),
+                            color: darkTheme ? Colors.white : Colors.black,
+                            size: 70),
                       ),
                     ),
             ),

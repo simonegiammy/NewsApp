@@ -8,7 +8,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 36, right: 24),
+      padding: const EdgeInsets.only(left: 20, top: 24, right: 24),
       child: Row(
         children: [
           Text(

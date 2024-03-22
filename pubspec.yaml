@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.5
   share_plus: ^7.2.2
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +35,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets: 
-    - assets/asset.jpg
+    - assets/
   fonts:
     - family: SF
       fonts:

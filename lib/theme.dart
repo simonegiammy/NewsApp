@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/home_screen.dart';
 
 @immutable
 class AppThemeData {
   const AppThemeData._();
 
+  static List<BoxShadow> getShadow() {
+    return [
+      BoxShadow(
+        color: darkTheme
+            ? Colors.black.withOpacity(0.9)
+            : Colors.grey.withOpacity(0.2),
+        spreadRadius: 5,
+        blurRadius: 7,
+        offset: const Offset(0, 3), // changes position of shadow
+      ),
+    ];
+  }
+
   static ThemeData get() {
     const fontFamily = "Inter";
     return ThemeData(
+      iconTheme: IconThemeData(color: darkTheme ? Colors.white : Colors.black),
       fontFamily: fontFamily,
+      scaffoldBackgroundColor:
+          darkTheme ? const Color(0xff1c1c1c) : Colors.white,
       textTheme: TextTheme(
         headlineLarge: Typography.blackMountainView.headlineLarge!.copyWith(
           fontFamily: fontFamily,
@@ -25,22 +42,28 @@ class AppThemeData {
         displaySmall: Typography.blackMountainView.displaySmall!
             .copyWith(fontFamily: fontFamily, fontSize: 18),
         titleLarge: Typography.blackMountainView.titleLarge!.copyWith(
+            color: !darkTheme ? Colors.black : Colors.white,
             fontFamily: fontFamily,
             letterSpacing: -2,
             fontSize: 36,
             fontWeight: FontWeight.bold),
         titleMedium: Typography.blackMountainView.titleMedium!.copyWith(
+            color: !darkTheme ? Colors.black : Colors.white,
             fontFamily: fontFamily,
             letterSpacing: -1,
             fontSize: 20,
             fontWeight: FontWeight.bold),
         titleSmall: Typography.blackMountainView.titleSmall!.copyWith(
+            color: !darkTheme ? Colors.black : Colors.white,
             fontFamily: fontFamily,
             letterSpacing: -1,
             fontSize: 16,
             fontWeight: FontWeight.bold),
-        bodyLarge: Typography.blackMountainView.bodyLarge!
-            .copyWith(fontFamily: fontFamily, fontSize: 18, height: 1),
+        bodyLarge: Typography.blackMountainView.bodyLarge!.copyWith(
+            color: !darkTheme ? Colors.black : Colors.white,
+            fontFamily: fontFamily,
+            fontSize: 18,
+            height: 1),
         bodyMedium: Typography.blackMountainView.bodyMedium!.copyWith(
           fontSize: 18,
           letterSpacing: -1,

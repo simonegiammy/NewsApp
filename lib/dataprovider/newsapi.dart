@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:news_app/dataprovider/dioconfig.dart';
 import 'package:news_app/screens/home_screen.dart';
 
@@ -12,6 +11,20 @@ class NewsAPI {
     if (tag != null) {
       url += "&category=${tag.toLowerCase()}";
     }
+
+    try {
+      var value = await _dio.get(url);
+      return value.data['articles'];
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> searchNews(String? q) async {
+    String locale = currentLanguage == "us" ? "en" : "it";
+    String url = "/everything?language=$locale&apiKey=$apiKey&q=$q";
+
     var value = await _dio.get(url);
 
     return value.data['articles'];

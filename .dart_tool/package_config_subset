@@ -118,6 +118,10 @@ mime
 3.2
 file:///Users/giammy/.pub-cache/hosted/pub.dev/mime-1.0.5/
 file:///Users/giammy/.pub-cache/hosted/pub.dev/mime-1.0.5/lib/
+nested
+2.12
+file:///Users/giammy/.pub-cache/hosted/pub.dev/nested-1.0.0/
+file:///Users/giammy/.pub-cache/hosted/pub.dev/nested-1.0.0/lib/
 octo_image
 2.12
 file:///Users/giammy/.pub-cache/hosted/pub.dev/octo_image-2.0.0/
@@ -158,6 +162,10 @@ plugin_platform_interface
 3.0
 file:///Users/giammy/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/
 file:///Users/giammy/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib/
+provider
+2.12
+file:///Users/giammy/.pub-cache/hosted/pub.dev/provider-6.1.2/
+file:///Users/giammy/.pub-cache/hosted/pub.dev/provider-6.1.2/lib/
 rxdart
 2.12
 file:///Users/giammy/.pub-cache/hosted/pub.dev/rxdart-0.27.7/

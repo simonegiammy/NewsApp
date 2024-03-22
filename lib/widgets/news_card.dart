@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/model/news.dart';
+import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/theme.dart';
 
 class NewsCard extends StatefulWidget {
@@ -29,36 +30,38 @@ class _NewsCardState extends State<NewsCard> {
       tag: 'news-card${widget.id}',
       child: Container(
         width: width,
-        height: hasImage || widget.extend ? width * 1.7 : width,
+        height: hasImage || widget.extend ? width * 1.6 : width,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
+            boxShadow: AppThemeData.getShadow(),
             color: backgroundPalette[
                 widget.news.title!.length % backgroundPalette.length],
             borderRadius: const BorderRadius.all(Radius.circular(48))),
         child: Stack(
           children: [
             if (hasImage)
-              SizedBox.expand(
-                  child: CachedNetworkImage(
-                imageUrl: widget.news.urlToImage!,
-                placeholder: (context, url) {
-                  return Animate(
-                    effects: const [ShimmerEffect()],
-                    child: Container(
-                      color: Colors.white,
-                    ),
+              SizedBox.expand(child: Builder(builder: (context) {
+                try {
+                  return CachedNetworkImage(
+                    errorWidget: (context, url, error) {
+                      return Container();
+                    },
+                    imageUrl: widget.news.urlToImage!,
+                    placeholder: (context, url) {
+                      return Animate(
+                        effects: const [ShimmerEffect()],
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    fit: BoxFit.fitHeight,
                   );
-                },
-                fit: BoxFit.fitHeight,
-              )),
+                } catch (e) {
+                  print(e);
+                  return Container();
+                }
+              })),
             Positioned(
                 left: 0,
                 right: 0,
@@ -94,7 +97,7 @@ class _NewsCardState extends State<NewsCard> {
                         ],
                         child: Text(
                           widget.news.title!,
-                          maxLines: hasImage ? 3 : 9,
+                          maxLines: hasImage ? 3 : 4,
                           overflow: TextOverflow.ellipsis,
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(

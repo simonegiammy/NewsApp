@@ -1,3 +1,21 @@
 {
-    "prova": "prova"
+    "breakingNews": "Ultime notizie", 
+    "forYou": "Scelte per te", 
+    "technology": "Tecnologia", 
+    "science": "Scienza",
+    "business":"Business", 
+    "sports": "Sport", 
+    "discover": "Scopri di più",
+    "home": "Home", 
+    "search": "Cerca", 
+     "bookmark": "Salvati", 
+     "yourCollection": "I tuoi preferiti", 
+     "settings": "Impostazioni",
+     "readMore": "Scopri di più", 
+     "switchLanguage": "Cambia lingua", 
+     "delete": "Cancella", 
+     "hintText": "Cerca qui"
+
+
+
 }

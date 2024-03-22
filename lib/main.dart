@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:news_app/l10n/support_locale.dart';
+import 'package:news_app/locale_provider.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +17,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        title: 'Flutter Demo',
-        theme: AppThemeData.get(),
-        home: const HomeScreen());
+    return ChangeNotifierProvider(
+        create: (context) => LocaleProvider(),
+        builder: (context, child) {
+          return Consumer<LocaleProvider>(builder: (context, provider, child) {
+            return MaterialApp(
+                locale: provider.locale,
+                supportedLocales: L10n.support,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                title: 'Flutter Demo',
+                theme: AppThemeData.get(),
+                home: const HomeScreen());
+          });
+        });
   }
 }
 

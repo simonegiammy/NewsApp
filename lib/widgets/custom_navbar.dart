@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_app/screens/home_screen.dart';
 
 class CustomNavBar extends StatefulWidget {
   final int index;
@@ -14,8 +16,10 @@ class CustomNavBar extends StatefulWidget {
 class _CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    var t = AppLocalizations.of(context)!;
+    return Container(
       height: 64,
+      color: darkTheme ? const Color(0xff1c1c1c) : Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -26,7 +30,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               },
               currentIndex: widget.index,
               icon: Icons.home_outlined,
-              label: "Home"),
+              label: t.home),
           CustomNavBarItem(
               index: 1,
               onItemSelected: () {
@@ -34,7 +38,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               },
               currentIndex: widget.index,
               icon: Icons.search,
-              label: "Search"),
+              label: t.search),
           CustomNavBarItem(
               index: 2,
               onItemSelected: () {
@@ -42,15 +46,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               },
               currentIndex: widget.index,
               icon: Icons.bookmark_outline,
-              label: "Bookmark"),
-          CustomNavBarItem(
-              index: 3,
-              onItemSelected: () {
-                widget.onItemSelected(3);
-              },
-              currentIndex: widget.index,
-              icon: Icons.settings_outlined,
-              label: "Settings")
+              label: t.bookmark),
         ],
       ),
     );
@@ -83,7 +79,9 @@ class CustomNavBarItem extends StatelessWidget {
                 icon,
                 size: index == currentIndex ? 36 : 28,
                 color: index == currentIndex
-                    ? Colors.black
+                    ? darkTheme
+                        ? Colors.white
+                        : Colors.black
                     : Colors.grey.withOpacity(0.7),
               ),
             ),
@@ -97,7 +95,9 @@ class CustomNavBarItem extends StatelessWidget {
                   label,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: index == currentIndex
-                          ? Colors.black
+                          ? darkTheme
+                              ? Colors.white
+                              : Colors.black
                           : Colors.grey.withOpacity(0.7),
                       fontWeight: index == currentIndex
                           ? FontWeight.bold

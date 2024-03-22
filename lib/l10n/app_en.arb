@@ -1,3 +1,21 @@
 {
-    "prova":"trial"
+    "breakingNews": "Breaking News", 
+    "forYou": "For you", 
+    "technology": "Technology", 
+    "science": "Science",
+    "business":"Business", 
+    "sports": "Sports", 
+    "discover": "Discover more",
+    "home": "Home", 
+    "search": "Search", 
+     "bookmark": "Bookmark", 
+     "yourCollection": "Your collection", 
+     "settings": "Settings",
+     "readMore": "Read more", 
+     "switchLanguage": "Switch language", 
+     "delete": "Delete", 
+      "hintText": "Write something..."
+
+
+
 }

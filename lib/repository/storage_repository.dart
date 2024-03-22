@@ -25,10 +25,9 @@ class StorageRepository {
       final sp = await SharedPreferences.getInstance();
 
       List<News> savedNews = await getSavedNews();
-
       List<String> encodedNews =
-          savedNews.map((e) => jsonEncode(n.toJson())).toList();
-      encodedNews.add(jsonEncode(n.toJson()));
+          savedNews.map((e) => jsonEncode(e.toJson())).toList();
+      encodedNews.insert(0, jsonEncode(n.toJson()));
       sp.setStringList("saved-news", encodedNews);
       return true;
     } catch (e) {
@@ -47,6 +46,37 @@ class StorageRepository {
           savedNews.map((e) => jsonEncode(n.toJson())).toList();
 
       sp.setStringList("saved-news", encodedNews);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<List<String>> getChronology() async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.getStringList("tags") ?? [];
+  }
+
+  Future<bool> saveTag(String t) async {
+    try {
+      final sp = await SharedPreferences.getInstance();
+
+      List<String> savedTags = await getChronology();
+      savedTags.insert(0, t);
+      sp.setStringList("tags", savedTags);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> removeTags() async {
+    try {
+      final sp = await SharedPreferences.getInstance();
+
+      sp.setStringList("tags", []);
       return true;
     } catch (e) {
       print(e);
