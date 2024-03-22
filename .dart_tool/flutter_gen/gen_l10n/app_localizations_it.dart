@@ -51,4 +51,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get hintText => 'Cerca qui';
+
+  @override
+  String get findNew => 'Cerca qualcosa utilizzando la barra di ricerca';
 }

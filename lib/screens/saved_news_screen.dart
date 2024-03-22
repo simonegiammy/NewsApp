@@ -102,7 +102,7 @@ class _SavedNewsScreenState extends State<SavedNewsScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: Text(
-                              "Cerca qualcosa utilizzando la barra di ricerca",
+                              t.findNew,
                               style: Theme.of(context).textTheme.bodyLarge,
                               textAlign: TextAlign.center,
                             ),

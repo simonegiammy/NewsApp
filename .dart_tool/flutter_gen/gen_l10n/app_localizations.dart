@@ -188,6 +188,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Write something...'**
   String get hintText;
+
+  /// No description provided for @findNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Find new articles using search bar above!'**
+  String get findNew;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -14,7 +14,8 @@
      "readMore": "Read more", 
      "switchLanguage": "Switch language", 
      "delete": "Delete", 
-      "hintText": "Write something..."
+      "hintText": "Write something...", 
+       "findNew": "Find new articles using search bar above!"
 
 
 
