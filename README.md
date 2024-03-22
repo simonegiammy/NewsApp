@@ -2,12 +2,8 @@
 News App is my lates project developed on Flutter for Android/iOS smartphones. 
 With News App you can see latest news on the homepage with a great carousel and filter theme with some preset tags.
 
-| ![](https://i.postimg.cc/njM7MV3k/temp-Image-XGspde.avif)    |                      ![enter image description here](https://i.postimg.cc/NKw1bc0s/temp-Imageizf-K1-L.avif)|![enter image description here](https://i.postimg.cc/3ytmK0FN/temp-Image-EMIJCn.avif)
-|![enter image description here](https://i.postimg.cc/SXScFf8H/temp-Imageo3lad1.avif)|![enter image description here](https://i.postimg.cc/qzKs8R4D/temp-Imagekh2dcd.avif)
-
-
-
-
+ ![](https://i.postimg.cc/pmFPWwQF/temp-Image7-CApv-E.avif)                         ![enter image description here](https://i.postimg.cc/vcDQjgcX/temp-Imagead-Mn5k.avif)![enter image description here](https://i.postimg.cc/vcjQdYny/temp-Imagee-FRYm8.avif)
+![enter image description here](https://i.postimg.cc/9zmXdN26/temp-Image-Lr-WPmy.avif)![enter image description here](https://i.postimg.cc/v1wbc0XS/temp-Imageq3t-Oin.avif)
 
 
 
