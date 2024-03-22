@@ -3,7 +3,7 @@ import 'package:news_app/dataprovider/dioconfig.dart';
 import 'package:news_app/screens/home_screen.dart';
 
 class NewsAPI {
-  final String apiKey = "1b672db31dbf4dc590082690ff78d3e1";
+  final String apiKey = "[INSERT HERE YOU API KEY]";
   final Dio _dio = Dio(dioBaseConfig);
 
   Future<List<dynamic>> getTopNews(String? tag) async {
